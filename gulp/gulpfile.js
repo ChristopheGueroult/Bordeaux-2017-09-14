@@ -1,7 +1,14 @@
+'use strict';
+
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
 var concat = require('gulp-concat');
+
+var uglify = require('gulp-uglify');
+var pump = require('pump');
+var cleanCSS = require('gulp-clean-css');
+var gulpCopy = require('gulp-copy');
 
 // pour le dev =============================================================
 
@@ -16,9 +23,9 @@ gulp.task('sass', function(){
 
 gulp.task('watch', ['browserSync','sass','concatJs'], function(){
 	gulp.watch('src/scss/**/*.scss',['sass']);
-	gulp.watch('src/js/**/*.js',['concatJs']);
+	gulp.watch('src/javascript/**/*.js',['concatJs']);
 	gulp.watch('src/*.html', browserSync.reload);
-	gulp.watch('src/js/**/*.js', browserSync.reload);
+	gulp.watch('src/javascript/**/*.js', browserSync.reload);
 })
 
 gulp.task('browserSync', function(){
@@ -34,4 +41,43 @@ gulp.task('concatJs', function() {
     .pipe(concat('production.js'))
     .pipe(gulp.dest('src/js'));
 });
+
+
+// pour la prod =============================================
+
+// generate minify js in dist folder
+gulp.task('compress', function (cb) {
+  pump([
+        gulp.src('src/js/production.js'),
+        uglify(),
+        gulp.dest('dist/js/')
+    ],
+    cb
+  );
+});
+
+// generate minify css in dist folder
+gulp.task('minify-css', () => {
+  return gulp.src('src/css/global.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('dist/css/'));
+});
+
+// copy all .html in dist folder
+gulp.task('copy', function(){
+	gulp.src('./src/*.html')
+        .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('browserSyncProd', function(){
+	browserSync({
+		server: {
+			baseDir: 'dist'
+		}
+	})
+})
+
+// generate full dist
+gulp.task('prod',['compress','minify-css','copy', 'browserSyncProd'], function() {});
+
 
