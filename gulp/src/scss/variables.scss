@@ -1,0 +1,50 @@
+/**------------
+ * GRID DEFINITION
+ ------------*/
+
+ $container-fluid-width:				100%;
+ $container-width:						1170px;
+
+ $gutter-width: 						15px;
+
+ $sm-screen-breack-point:				768px;
+ $md-screen-breack-point:				992px;
+ $lg-screen-breack-point:				1200px;
+
+ $nbMaxColumns:							12;
+
+ /**------------
+ * COLORS
+ ------------*/
+
+ $color1:								#fff; //blanc
+ $color2:								#169A9F; //turquoise
+ $color3:								#FBA9FC; //rose
+ $color4:								#212020; //gris antracite
+ $color5:								#0ED46B;
+ $color6:								#FC0937;
+
+ /**------------
+ * FONT SIZES
+ ------------*/
+
+ $base-font-size:						14px;
+ $ratio:								4/3;
+ $p-fz:									1rem;
+ $h6-fz:								0;
+ $h5-fz:								0;
+ $h4-fz:								0;
+ $h3-fz:								$p-fz*$ratio;
+ $h2-fz:								0;
+ $h1-fz:								$h3-fz*$ratio;
+
+ /**------------
+ * OPTIONAL FILES
+ ------------*/
+
+ $grid-debug:							false;
+ $use-slider:							true;
+ $use-lightbox:							true;
+ $use-accordeon:						true;
+ $use-form:								true;
+ $use-pannel-admin:						true;
