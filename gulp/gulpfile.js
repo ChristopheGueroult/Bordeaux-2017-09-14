@@ -8,7 +8,6 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
-var gulpCopy = require('gulp-copy');
 
 // pour le dev =============================================================
 
@@ -46,6 +45,7 @@ gulp.task('concatJs', function() {
 // pour la prod =============================================
 
 // generate minify js in dist folder
+// https://www.npmjs.com/package/gulp-uglify
 gulp.task('compress', function (cb) {
   pump([
         gulp.src('src/js/production.js'),
@@ -57,6 +57,7 @@ gulp.task('compress', function (cb) {
 });
 
 // generate minify css in dist folder
+// https://www.npmjs.com/package/gulp-clean-css
 gulp.task('minify-css', () => {
   return gulp.src('src/css/global.css')
     .pipe(cleanCSS({compatibility: 'ie8'}))
@@ -64,6 +65,7 @@ gulp.task('minify-css', () => {
 });
 
 // copy all .html in dist folder
+// https://coderwall.com/p/9uzttg/simple-gulp-copy-file-task
 gulp.task('copy', function(){
 	gulp.src('./src/*.html')
         .pipe(gulp.dest('./dist/'));
@@ -78,6 +80,6 @@ gulp.task('browserSyncProd', function(){
 })
 
 // generate full dist
-gulp.task('prod',['compress','minify-css','copy', 'browserSyncProd'], function() {});
+gulp.task('build',['compress','minify-css','copy', 'browserSyncProd'], function() {});
 
 
