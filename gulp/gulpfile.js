@@ -9,6 +9,13 @@ var uglify = require('gulp-uglify');
 var pump = require('pump');
 var cleanCSS = require('gulp-clean-css');
 
+// using gulp-minify instead of uglify
+// var minify = require('gulp-minify');
+
+// using minifier instead of uglify
+// var minify = require('gulp-minifier');
+
+
 // pour le dev =============================================================
 
 gulp.task('sass', function(){
@@ -55,6 +62,31 @@ gulp.task('compress', function (cb) {
     cb
   );
 });
+
+// using minify instead uglify
+// gulp.task('compress', function() {
+// 	gulp.src('src/js/production.js').pipe(minify({
+// 		ext: {
+// 			// optionnel, crée un fichier de debug dans Dist
+// 			src: '-debug.js',
+// 			min: '-min.js'
+// 		},
+// 		exclude: ['tasks'],
+// 		ignoreFiles: ['.combo.js', '-min.js']
+// 	})).pipe(gulp.dest('dist/js'))
+// });
+
+// using gullp-minifier instead of uglify
+// gulp.task('copyJS', function() {
+//     return gulp.src('src/js/production.js')
+//     .pipe(minify({
+//         minify: true,
+//         collapseWhitespace: true,
+//         conservativeCollapse: true,
+//         minifyJS: true
+//           }))
+//     .pipe(gulp.dest('dist/js/'));
+// });
 
 // generate minify css in dist folder
 // https://www.npmjs.com/package/gulp-clean-css
